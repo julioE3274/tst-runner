@@ -1,4 +1,4 @@
-import { IInstanceTestCase, ITestCase } from "../Interfaces/iTestCase";
+import { IInstanceTestCase, ITestCase } from "../interfaces/iTestCase";
 import { EventRegister } from "./register";
 
 export abstract class TestCase implements ITestCase {

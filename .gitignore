@@ -1,3 +1,7 @@
+/core
+/index.*
+
+
 # Logs
 logs
 *.log
