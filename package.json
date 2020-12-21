@@ -1,6 +1,6 @@
 {
   "name": "tst-runner",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "test runner",
   "main": "index.js",
   "scripts": {
