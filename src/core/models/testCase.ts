@@ -14,7 +14,7 @@ export abstract class TestCase implements ITestCase {
 
 	async run(expectedResult: any, ...inParams: any) {
 		EventRegister.instance().info( `Starting ${this.testCaseName}`, inParams, expectedResult );
-		const result = await this.logic(inParams);
+		const result = await this.logic(...inParams);
 		const success = result === expectedResult;
 		if (success) {
 			EventRegister.instance().success( `Successfully ${this.testCaseName}`, inParams, expectedResult  );
@@ -26,11 +26,11 @@ export abstract class TestCase implements ITestCase {
 
 	async runAllInstances(async = true) {
 		if ( async ) {
-			const promises = this.instances.map( instance => this.run( instance.expectedResult, instance.inParams ) );
+			const promises = this.instances.map( instance => this.run( instance.expectedResult, ...instance.inParams ) );
 			await Promise.all( promises );
 		} else {
 			for (let i = 0; i < this.instances.length; i++) {
-				await this.run(this.instances[i].expectedResult, this.instances[i].inParams);
+				await this.run(this.instances[i].expectedResult, ...this.instances[i].inParams);
 			}
 		}
 	}
