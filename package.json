@@ -1,29 +1,33 @@
 {
-  "name": "tst-runner",
-  "version": "1.0.2",
-  "description": "test runner",
-  "main": "index.js",
-  "scripts": {
-    "test": "npm run tsc && npx ts-node ./src/examples/some.testCase.ts",
-    "test-js": "node ./src/examples/some.testCase.js",
-    "tsc": "tsc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/julioE3274/tst-runner.git"
-  },
-  "keywords": [
-    "test",
-    "runner"
-  ],
-  "author": "Julio C Suarez Fonseca",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/julioE3274/tst-runner/issues"
-  },
-  "homepage": "https://github.com/julioE3274/tst-runner#readme",
-  "devDependencies": {
-    "tslint": "^6.1.3",
-    "typescript": "^4.1.3"
-  }
+    "name": "tst-runner",
+    "version": "1.0.2",
+    "description": "test runner",
+    "main": "index.js",
+    "scripts": {
+        "test": "npm run tsc && npx jasmine-ts",
+        "js-example": "npm run tsc && node ./src/examples/some.tst.js",
+        "tsc": "tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/julioE3274/tst-runner.git"
+    },
+    "keywords": [
+        "test",
+        "runner"
+    ],
+    "author": "Julio C Suarez Fonseca",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/julioE3274/tst-runner/issues"
+    },
+    "homepage": "https://github.com/julioE3274/tst-runner#readme",
+    "devDependencies": {
+        "@types/jasmine": "^3.6.2",
+        "jasmine": "^3.6.3",
+        "jasmine-ts": "^0.3.0",
+        "ts-node": "^9.1.1",
+        "tslint": "^6.1.3",
+        "typescript": "^4.1.3"
+    }
 }

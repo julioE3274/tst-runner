@@ -1,15 +1,15 @@
-const { TestCase } = require('./../..');
+import { TestCase, IInstanceTestCase } from "../../..";
 
-class SomeTestCase extends TestCase {
+export class SomeTestCase extends TestCase {
 
-    instances = [
+    instances: IInstanceTestCase<typeof SomeTestCase['prototype']['logic']>[] = [
         { expectedResult: false, inParams: [true, 83,'testing string param'] },
         { expectedResult: false, inParams: [false, -48,'tested'] },
         { expectedResult: true, inParams: [true] },
         { expectedResult: null, inParams: [] },
     ];
 
-    async logic(returnValue = false, numberParam = 0, stringParam = 'test'){
+    protected async logic(returnValue = false, numberParam = 0, stringParam = 'test'){
         console.log('returnValue => ', returnValue, ' numberParam => ', numberParam, ' stringParam => ', stringParam);
 
         const milliseconds = Math.random() * 4000; // max 4s
@@ -20,9 +20,3 @@ class SomeTestCase extends TestCase {
     }
 
 }
-
-
-const someTestCase = new SomeTestCase();
-someTestCase.runAllInstances();
-someTestCase.run(true, true, 5, 'string' );
-someTestCase.run(true );
