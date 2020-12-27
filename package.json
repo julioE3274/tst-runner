@@ -4,7 +4,7 @@
   "description": "test runner",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
+    "test": "npm run tsc && npx ts-node ./src/examples/some.testCase.ts",
     "tsc": "tsc"
   },
   "repository": {
