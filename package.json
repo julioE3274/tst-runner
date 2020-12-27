@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run tsc && npx ts-node ./src/examples/some.testCase.ts",
+    "test-js": "node ./src/examples/some.testCase.js",
     "tsc": "tsc"
   },
   "repository": {
