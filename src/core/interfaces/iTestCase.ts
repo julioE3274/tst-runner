@@ -1,14 +1,15 @@
+import { LogicArgsType } from "../types/logicArgs.type";
+import { LogicReturnType } from "../types/logicReturn.type";
+
 export interface ITestCase {
 
     testCaseName: string;
     instances: IInstanceTestCase[];
 
-    run: ( expectedResult: any, ... inParams: any ) => Promise<boolean>;
+    run: any;
 
 }
-export interface IInstanceTestCase<LogicFunctionType extends ( ...arg: any ) => any = any> {
-    expectedResult: PromiseReturnType< ReturnType< LogicFunctionType > >;
-    inParams: Parameters< LogicFunctionType >;
+export interface IInstanceTestCase<T = any> {
+    expectedResult: LogicReturnType<T>;
+    inParams: LogicArgsType<T>;
 }
-
-type PromiseReturnType<T> = T extends Promise<infer R> ? R : any;

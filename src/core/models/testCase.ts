@@ -1,18 +1,25 @@
 import { IInstanceTestCase, ITestCase } from "../interfaces/iTestCase";
+import { LogicArgsType } from "../types/logicArgs.type";
+import { LogicReturnType } from "../types/logicReturn.type";
 import { EventRegister } from "./register";
 
-export abstract class TestCase implements ITestCase {
+export abstract class TestCase<T = any> implements ITestCase {
 
 	testCaseName: string;
-	abstract instances: IInstanceTestCase[];
+	abstract instances: IInstanceTestCase<T>[];
 
 	constructor() {
 		this.testCaseName = this.constructor.name;
 	}
 
-	protected abstract logic(...inParams: any): Promise<any>;
+	protected abstract logic(...inParams: LogicArgsType<T>): Promise<any>;
 
-	async run(expectedResult: any, ...inParams: any) {
+	/**
+	 * Returns true if expectedResult is equal to logic() result
+	 * @param  expectedResult
+	 * @param  ...inParams it must be all parameters of logic()
+	 */
+	async run(expectedResult: LogicReturnType<T>, ...inParams: LogicArgsType<T>) {
 		EventRegister.instance().info( `Starting ${this.testCaseName}`, inParams, expectedResult );
 		const result = await this.logic(...inParams);
 		const success = result === expectedResult;
@@ -24,6 +31,10 @@ export abstract class TestCase implements ITestCase {
 		return success;
 	};
 
+	/**
+	 * Run all instances by default asynchronously
+	 * @param  {} async=true
+	 */
 	async runAllInstances(async = true) {
 		if ( async ) {
 			const promises = this.instances.map( instance => this.run( instance.expectedResult, ...instance.inParams ) );
