@@ -5,7 +5,7 @@ export interface ITestCase {
 
     testCaseName: string;
     instances: IInstanceTestCase[];
-
+    uuid: string;
     run: any;
 
 }

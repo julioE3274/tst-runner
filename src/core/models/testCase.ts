@@ -6,12 +6,17 @@ import { EventRegister } from "./register";
 
 export abstract class TestCase<T = any> implements ITestCase {
 
-	testCaseName: string;
+	readonly testCaseName: string = this.constructor.name;
 	readonly uuid = createUUID();
 	abstract instances: IInstanceTestCase<T>[];
+	result: LogicReturnType<T>;
+	success: boolean;
+	requeredTestCases: TestCase[] = [];
+	requeredAsyncInstances: boolean = null;
+	requeredPostRunTestCases: TestCase[] = [];
+	requeredPostRunAsyncInstances: boolean = null;
 
 	constructor() {
-		this.testCaseName = this.constructor.name;
 	}
 
 	protected abstract logic(...inParams: LogicArgsType<T>): Promise<LogicReturnType<T>>;
@@ -23,22 +28,24 @@ export abstract class TestCase<T = any> implements ITestCase {
 	async run(instance: IInstanceTestCase<T>) {
 		instance.uuid = instance.uuid === null || instance.uuid === undefined ? createUUID() : instance.uuid;
 		EventRegister.instance().info( `Starting ${this.testCaseName}`, instance );
+		await Promise.all( this.requeredTestCases.map( async testCase => await testCase.runAllInstances(testCase.requeredAsyncInstances) ) );
 		const result = await this.logic(...instance.inParams);
-		instance.result = result;
-		instance.success = result === instance.expectedResult;
+		instance.result = this.result = result;
+		instance.success = this.success = result === instance.expectedResult;
 		if (instance.success) {
 			EventRegister.instance().success( `Successfully ${this.testCaseName}`, instance );
 		} else {
 			EventRegister.instance().error( `Error ${this.testCaseName}`, instance );
 		}
+		await Promise.all( this.requeredPostRunTestCases.map( async testCase => await testCase.runAllInstances(testCase.requeredPostRunAsyncInstances) ) );
 		return instance;
 	}
 
 	/**
-	 * Run all instances by default asynchronously
-	 * @param  {} async=true
+	 * Run all instances by default synchronously
+	 * @param  {} async=null
 	 */
-	async runAllInstances(async: boolean = true) {
+	async runAllInstances(async: boolean = null) {
 		if ( async ) {
 			const promises = this.instances.map( instance => this.run( instance ) );
 			await Promise.all( promises );
