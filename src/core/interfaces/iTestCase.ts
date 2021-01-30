@@ -12,4 +12,9 @@ export interface ITestCase {
 export interface IInstanceTestCase<T = any> {
     expectedResult: LogicReturnType<T>;
     inParams: LogicArgsType<T>;
+    result?: LogicReturnType<T>;
+    success?: boolean;
+    uuid?: string;
+    logs?: IInstanceTestCase<T>[];
+    [key: string]: any;
 }

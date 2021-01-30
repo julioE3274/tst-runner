@@ -1,4 +1,4 @@
-import { TestCase, IInstanceTestCase } from "../../..";
+import { TestCase, IInstanceTestCase } from "../../";
 
 export class SomeTestCase extends TestCase<SomeTestCase> {
 

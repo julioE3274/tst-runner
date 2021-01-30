@@ -1,4 +1,4 @@
-import { IRegister } from "../Interfaces/iRegister";
+import { IRegister } from "../interfaces/iRegister";
 
 export class EventRegister implements IRegister {
 
