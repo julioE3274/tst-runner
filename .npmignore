@@ -1,3 +1,4 @@
 src
 .github
 spec
+tsconfig.json
