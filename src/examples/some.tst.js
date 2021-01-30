@@ -24,5 +24,5 @@ class SomeTestCase extends TestCase {
 
 const someTestCase = new SomeTestCase();
 someTestCase.runAllInstances();
-someTestCase.run(true, true, 5, 'string' );
-someTestCase.run(true );
+someTestCase.run( {expectedResult: true, inParams: [true, 5, 'string']} );
+someTestCase.run( {expectedResult: true, inParams: [] } );

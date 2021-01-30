@@ -10,15 +10,15 @@ describe("Implementing some test case", () => {
 
     it("Run with expectedResult as true and returnParam as true", async () => {
 
-        const result = await someTestCase.run( true, true );
-        expect( result ).toBeTrue();
+        const result = await someTestCase.run( {expectedResult: true, inParams: [true] });
+        expect( result.success ).toBeTrue();
 
     });
 
     it("Run with expectedResult as true and returnParam as false", async () => {
 
-        const result = await someTestCase.run( true, false );
-        expect( result ).toBeFalse();
+        const result = await someTestCase.run( {expectedResult: true, inParams: [false] } );
+        expect( result.success ).toBeFalse();
 
     });
 
